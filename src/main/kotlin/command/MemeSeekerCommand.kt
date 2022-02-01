@@ -1,5 +1,8 @@
 package org.echoosx.mirai.plugin.command
 
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.descriptor.ExperimentalCommandDescriptors
@@ -23,19 +26,23 @@ object MemeSeekerCommand:SimpleCommand(
     @Handler
     suspend fun CommandSender.handle(vararg args:String){
         try {
-            val keyword = args.joinToString(" ")
-            val meme = searchMeme(keyword)
-            var message = buildMessageChain { append("${meme.title}：${meme.content}")}
+            Mutex().withLock {
+                delay(1000)
+                val keyword = args.joinToString(" ")
+                val meme = searchMeme(keyword)
+                var message = buildMessageChain { append("${meme.title}：${meme.content}")}
 
-            for(url in meme.url){
-                val client = OkHttpClient()
-                val request = Request.Builder().url(url).get()
-                val response = client.newCall(request.build()).execute()
-                val memeImage = response.body!!.byteStream()
-                val image = memeImage.toExternalResource().use { it.uploadAsImage(user!!) }
-                message += image
+                for(url in meme.url){
+                    val client = OkHttpClient()
+                    val request = Request.Builder().url(url).get()
+                    val response = client.newCall(request.build()).execute()
+                    val memeImage = response.body!!.byteStream()
+                    val image = memeImage.toExternalResource().use { it.uploadAsImage(user!!) }
+                    message += image
+                }
+                message += meme.ref
+                sendMessage(message)
             }
-            sendMessage(message)
         }catch (e:Throwable){
             sendMessage("查询失败")
             MemeSeeker.logger.error(e)
