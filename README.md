@@ -3,7 +3,7 @@
 > 基于 [Mirai Console](https://github.com/mamoe/mirai-console) 的 查梗插件
 
 [![Release](https://img.shields.io/github/v/release/Echoosx/MemeSeeker)](https://github.com/Echoosx/MemeSeeker/releases)
-
+[![Build](https://github.com/Echoosx/MemeSeeker/workflows/Gradle%20CI/badge.svg?branch=master)](https://github.com/Echoosx/MemeSeeker/actions/workflows/Gradle%20CI.yml)
 ## 功能
 本插件基于`小鸡词典`数据，能满足用户的查梗需求，返回关联度最高的回答
 ![img.png](static/0.png)
@@ -22,7 +22,8 @@
 
 ## 配置
 ### config.yml
-- `cookie` 用户登录小鸡词典的cookie，如果不设置并且请求量大容易被禁ip
+- `cookie` 用户登录小鸡词典的cookie（如果不设置且请求量大容易ip被禁）
+- `alias` 自定义命令名称
 
 ### 获取Cookie的方法
 本插件基于`小鸡词典`数据，由于该网站有反爬系统，需要获取cookie

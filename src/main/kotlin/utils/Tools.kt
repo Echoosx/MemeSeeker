@@ -45,7 +45,7 @@ fun getDetail(meme:Meme, link:String){
         }
     }
 
-    val refNodes = document.select("div.reference-list")
+    val refNodes = document.select("div.reference-card")
     meme.ref = refNodes.select("iframe").attr("src")
 
 //    MemeSeeker.logger.info(meme.title)

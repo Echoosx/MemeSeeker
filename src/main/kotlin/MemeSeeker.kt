@@ -21,8 +21,6 @@ object MemeSeeker : KotlinPlugin(
         MemeSeekerCommand.register()
         if(cookie.isEmpty())
             logger.warning("没有填写cookie，请求次数过多可能会受到反爬虫限制")
-        else
-            logger.info(cookie)
         logger.info { "MemeSeeker loaded" }
     }
 }
