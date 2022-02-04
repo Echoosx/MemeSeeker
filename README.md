@@ -6,7 +6,7 @@
 [![Build](https://github.com/Echoosx/MemeSeeker/workflows/Gradle%20CI/badge.svg?branch=master)](https://github.com/Echoosx/MemeSeeker/actions/workflows/Gradle%20CI.yml)
 ## 功能
 本插件基于`小鸡词典`数据，能满足用户的查梗需求，返回关联度最高的回答
-![img.png](img.png)
+![img.png](static/0.png)
 
 ## 指令
 注意: 使用前请确保可以 [在聊天环境执行指令](https://github.com/project-mirai/chat-command)  
