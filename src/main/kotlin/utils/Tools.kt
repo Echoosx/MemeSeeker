@@ -7,8 +7,13 @@ import org.jsoup.nodes.Document
 class Meme{
     var title:String = ""
     var content:String = ""
-    var url:MutableList<String> = arrayListOf()
-    var ref:String = ""
+    var image:MutableList<String> = arrayListOf()
+    var reference:MutableList<Reference> = arrayListOf()
+}
+
+class Reference{
+    var text:String = ""
+    var link:String = ""
 }
 
 fun searchMeme(keyword:String):Meme{
@@ -30,9 +35,11 @@ fun getDetail(meme:Meme, link:String){
         .header("cookie",cookie)
         .timeout(3000)
         .get()
-    meme.title = document.select("div.title-container-content>h1").text()
-    val contentNodes = document.select("div.content>div>*")
-    val imagNodes = document.select("div.show-images>img.show-images-img")
+
+    val card = document.select("div.full-card")
+    meme.title = card.select("div.title-container-content>h1").text()
+    val contentNodes = card.select("div.content>div>*")
+    val imagNodes = card.select("div.show-images>img.show-images-img")
     var content = ""
     for(line in contentNodes){
         content += line.text()
@@ -41,14 +48,15 @@ fun getDetail(meme:Meme, link:String){
     for(img in imagNodes){
         val url = img.attr("src")
         if(url!=""){
-            meme.url.add(url)
+            meme.image.add(url)
         }
     }
 
-    val refNodes = document.select("div.reference-card")
-    meme.ref = refNodes.select("iframe").attr("src")
-
-//    MemeSeeker.logger.info(meme.title)
-//    MemeSeeker.logger.info(meme.content)
-//    MemeSeeker.logger.info(meme.ref)
+    val refNodes = card.select("div.reference-card")
+    for(refNode in refNodes) {
+        val reference = Reference()
+        reference.text = refNode.select("a").text()
+        reference.link = refNode.select("a").attr("href")
+        meme.reference.add(reference)
+    }
 }

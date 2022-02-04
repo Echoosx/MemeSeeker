@@ -9,7 +9,6 @@ import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.descriptor.ExperimentalCommandDescriptors
 import net.mamoe.mirai.console.util.ConsoleExperimentalApi
-import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.buildMessageChain
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
@@ -38,7 +37,7 @@ object MemeSeekerCommand:SimpleCommand(
                 async {
                     val meme = searchMeme(keyword)
                     var message = buildMessageChain { append("${meme.title}：${meme.content}") }
-                    for (url in meme.url) {
+                    for (url in meme.image) {
                         val client = OkHttpClient()
                         val request = Request.Builder().url(url).get()
                         val response = client.newCall(request.build()).execute()
@@ -46,7 +45,9 @@ object MemeSeekerCommand:SimpleCommand(
                         val image = memeImage.toExternalResource().use { it.uploadAsImage(user!!) }
                         message += image
                     }
-                    message += meme.ref
+                    for (ref in meme.reference){
+                        message += "\n《${ref.text}》${ref.link}"
+                    }
                     return@async message
                 }
             }
@@ -54,7 +55,7 @@ object MemeSeekerCommand:SimpleCommand(
             val mutex = Mutex()
             mutex.withLock {
                 delay(1_000)
-                sendMessage(At(user!!) + "\n" + message_.await())
+                sendMessage(message_.await())
             }
 
         }catch(e: HttpStatusException){
