@@ -3,7 +3,7 @@
 > 基于 [Mirai Console](https://github.com/mamoe/mirai-console) 的 查梗插件
 
 [![Release](https://img.shields.io/github/v/release/Echoosx/MemeSeeker)](https://github.com/Echoosx/MemeSeeker/releases)
-[![Build](https://github.com/Echoosx/MemeSeeker/workflows/Gradle%20CI/badge.svg?branch=master)](https://github.com/Echoosx/MemeSeeker/actions/workflows/Gradle%20CI.yml)
+[![Build](https://github.com/Echoosx/MemeSeeker/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)](https://github.com/Echoosx/MemeSeeker/actions/workflows/gradle.yml)
 ## 功能
 本插件基于`小鸡词典`数据，能满足用户的查梗需求，返回关联度最高的回答
 ![img.png](static/0.png)
