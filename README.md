@@ -6,6 +6,7 @@
 [![Build](https://github.com/Echoosx/MemeSeeker/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)](https://github.com/Echoosx/MemeSeeker/actions/workflows/gradle.yml)
 ## 功能
 本插件基于`小鸡词典`数据，能满足用户的查梗需求，返回关联度最高的回答
+
 ![img.png](static/0.png)
 
 ## 指令
@@ -29,9 +30,16 @@
 本插件基于`小鸡词典`数据，由于该网站有反爬系统，需要获取cookie
 
 - 首先进入 [小鸡词典官网](https://jikipedia.com)，没有账号的话注册一个账号
-- 在网页中按下`F12` 或右键`检查` 会有开发者工具弹出。点击上方的`网络`一栏（英文版为`Network`）![img.png](static/1.png)
-- 此时刷新页面，在获取内容中找到`jikipedia.com`，点击进入![img.png](static/2.png)
+- 在网页中按下`F12` 或右键`检查` 会有开发者工具弹出。点击上方的`网络`一栏（英文版为`Network`）
+
+![img.png](static/1.png)
+
+- 此时刷新页面，在获取内容中找到`jikipedia.com`，点击进入
+
+![img.png](static/2.png)
+
 - 在`标头`中找到`Cookie`项，将值复制下来，填入`config.yml`
+
 ![img.png](static/3.png)
 
 ## 安装
