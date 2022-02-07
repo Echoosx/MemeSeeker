@@ -9,6 +9,7 @@ import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.descriptor.ExperimentalCommandDescriptors
 import net.mamoe.mirai.console.util.ConsoleExperimentalApi
+import net.mamoe.mirai.message.data.Image
 import net.mamoe.mirai.message.data.buildMessageChain
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
@@ -42,8 +43,11 @@ object MemeSeekerCommand:SimpleCommand(
                         val request = Request.Builder().url(url).get()
                         val response = client.newCall(request.build()).execute()
                         val memeImage = response.body!!.byteStream()
-                        val image = memeImage.toExternalResource().use { it.uploadAsImage(user!!) }
-                        message += image
+                        var image: Image? = null
+                        try{image = memeImage.toExternalResource().use { it.uploadAsImage(user!!) }}
+                        catch(_:IllegalArgumentException){}
+                        if(image != null)
+                            message += image
                     }
                     for (ref in meme.reference){
                         message += "\n《${ref.text}》${ref.link}"
