@@ -21,7 +21,6 @@ fun searchMeme(keyword:String):Meme{
     val document: Document = Jsoup.connect("https://jikipedia.com/search")
         .header("cookie",cookie)
         .data("phrase",keyword)
-        .timeout(3000)
         .get()
 
     val box = document.select("div.masonry>div[data-category='definition']")[0]
@@ -33,7 +32,6 @@ fun searchMeme(keyword:String):Meme{
 fun getDetail(meme:Meme, link:String){
     val document: Document = Jsoup.connect(link)
         .header("cookie",cookie)
-        .timeout(3000)
         .get()
 
     val card = document.select("div.full-card")
