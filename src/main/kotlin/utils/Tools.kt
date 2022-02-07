@@ -16,6 +16,9 @@ class Reference{
     var link:String = ""
 }
 
+
+class NoResultException() : RuntimeException()
+
 fun searchMeme(keyword:String):Meme{
     val meme = Meme()
     val document: Document = Jsoup.connect("https://jikipedia.com/search")
@@ -23,8 +26,10 @@ fun searchMeme(keyword:String):Meme{
         .data("phrase",keyword)
         .get()
 
-    val box = document.select("div.masonry>div[data-category='definition']")[0]
-    val link = box.select("a.title-container").attr("href")
+    val box = document.select("div.masonry>div[data-category='definition']")
+    if(box.size == 0)
+        throw NoResultException()
+    val link = box[0].select("a.title-container").attr("href")
     getDetail(meme,link)
     return meme
 }

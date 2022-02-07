@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.echoosx.mirai.plugin.MemeSeeker
 import org.echoosx.mirai.plugin.MemeSeekerConfig.alias
+import org.echoosx.mirai.plugin.utils.NoResultException
 import org.echoosx.mirai.plugin.utils.searchMeme
 import org.jsoup.HttpStatusException
 
@@ -67,6 +68,8 @@ object MemeSeekerCommand:SimpleCommand(
                 sendMessage("查询过于频繁了，请慢一点~❤")
             else
                 throw e
+        }catch(e: NoResultException){
+            sendMessage("未查询到相关词条")
         }
         catch (e:Throwable){
             sendMessage("查询失败")

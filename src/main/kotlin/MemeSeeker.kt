@@ -11,7 +11,7 @@ object MemeSeeker : KotlinPlugin(
     JvmPluginDescription(
         id = "org.echoosx.mirai.plugin.MemeSeeker",
         name = "MemeSeeker",
-        version = "1.0.3"
+        version = "1.0.4"
     ) {
         author("Echoosx")
     }
